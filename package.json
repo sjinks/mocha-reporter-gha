@@ -1,0 +1,61 @@
+{
+  "name": "mocha-reporter-gha",
+  "version": "1.0.0",
+  "main": "dist/lib/index.js",
+  "scripts": {
+    "build": "tsc",
+    "lint": "eslint .",
+    "test": "mocha",
+    "test:coverage": "nyc mocha",
+    "prepack": "npm run build"
+  },
+  "keywords": [
+    "mocha",
+    "mocha-reporter",
+    "gha",
+    "github-actions"
+  ],
+  "files": [
+    "dist/lib/index.js",
+    "dist/lib/index.d.ts",
+    "dist/lib/index.js.map"
+  ],
+  "typings": "dist/lib/index.d.ts",
+  "author": "Volodymyr Kolesnykov <volodymyr@wildwolf.name> (https://wildwolf.name/)",
+  "license": "MIT",
+  "devDependencies": {
+    "@myrotvorets/eslint-config-myrotvorets-ts": "^2.5.0",
+    "@types/chai": "^4.2.16",
+    "@types/mocha": "^9.0.0",
+    "@types/node": "^16.0.2",
+    "@typescript-eslint/eslint-plugin": "^5.0.0",
+    "chai": "^4.3.4",
+    "eslint": "^7.24.0",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-import": "^2.22.1",
+    "eslint-plugin-prettier": "^4.0.0",
+    "eslint-plugin-promise": "^5.1.0",
+    "eslint-plugin-sonarjs": "^0.10.0",
+    "mocha": "^9.0.0",
+    "nyc": "^15.1.0",
+    "prettier": "^2.2.1",
+    "ts-node": "^10.0.0",
+    "typescript": "^4.1.3"
+  },
+  "description": "Mocha reporter for GitHub Actions",
+  "dependencies": {
+    "@actions/core": "^1.6.0"
+  },
+  "directories": {
+    "lib": "lib",
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sjinks/mocha-reporter-gha.git"
+  },
+  "bugs": {
+    "url": "https://github.com/sjinks/mocha-reporter-gha/issues"
+  },
+  "homepage": "https://github.com/sjinks/mocha-reporter-gha#readme"
+}
