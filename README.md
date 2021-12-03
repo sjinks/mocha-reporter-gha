@@ -5,7 +5,7 @@
 
 Mocha reporter for GitHub Actions.
 
-This reporter was inspired by [mocha-github-actions-reporter](https://github.com/daniellockyer/mocha-github-actions-reporter) but is written in TypeScript and is implemented a bit differently. Unlike the origina, it supports mocha > 9.0.0 andhas a proper test suite.
+This reporter was inspired by [mocha-github-actions-reporter](https://github.com/daniellockyer/mocha-github-actions-reporter) but is written in TypeScript and is implemented a bit differently. Unlike the original, it supports mocha > 9.0.0 and has a proper test suite.
 
 ## Installation
 
