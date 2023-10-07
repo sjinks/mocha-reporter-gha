@@ -61,9 +61,9 @@ class GitHubActionsReporter extends mocha.reporters.Base {
             // istanbul ignore else
             if (matches) {
                 return {
-                    file: matches[1],
-                    line: parseInt(matches[2], 10),
-                    column: parseInt(matches[3], 10),
+                    file: matches[1] as string,
+                    line: parseInt(matches[2] as string, 10),
+                    column: parseInt(matches[3] as string, 10),
                 };
             }
         }
