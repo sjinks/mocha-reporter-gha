@@ -1,5 +1,5 @@
-import Mocha from 'mocha';
-import assert from 'assert';
+import assert from 'node:assert/strict';
+import Mocha, { Context, Runner, Suite } from 'mocha';
 import { expect } from 'chai';
 import Reporter from '../lib';
 
@@ -51,17 +51,17 @@ const hook = (
 
 describe('GitHub Actions Reporter', function () {
     let mocha: Mocha;
-    let context: Mocha.Context;
-    let suite: Mocha.Suite;
-    let runner: Mocha.Runner;
+    let context: Context;
+    let suite: Suite;
+    let runner: Runner;
 
     beforeEach(function () {
         mocha = new Mocha({
             reporter: Reporter,
         });
-        context = new Mocha.Context();
-        suite = new Mocha.Suite('Test Suite', context);
-        runner = new Mocha.Runner(suite, { delay: false });
+        context = new Context();
+        suite = new Suite('Test Suite', context);
+        runner = new Runner(suite, { delay: false });
 
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         // @ts-ignore
