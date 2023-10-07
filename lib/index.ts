@@ -1,4 +1,4 @@
-import { AnnotationProperties, endGroup, error, startGroup } from '@actions/core';
+import { type AnnotationProperties, endGroup, error, startGroup } from '@actions/core';
 import mocha from 'mocha';
 
 interface ErrorLocation {
