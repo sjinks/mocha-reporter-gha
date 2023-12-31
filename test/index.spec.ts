@@ -1,6 +1,5 @@
-import { equal } from 'node:assert/strict';
+import { equal, match } from 'node:assert/strict';
 import Mocha, { Context, Runner, Suite } from 'mocha';
-import { match } from 'node:assert';
 import Reporter from '../lib';
 
 const failedTest = new Mocha.Test('generates a report on failure', function () {
