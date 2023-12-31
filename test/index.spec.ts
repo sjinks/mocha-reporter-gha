@@ -1,11 +1,10 @@
-import assert from 'node:assert/strict';
+import { equal } from 'node:assert/strict';
 import Mocha, { Context, Runner, Suite } from 'mocha';
-import { expect } from 'chai';
+import { match } from 'node:assert';
 import Reporter from '../lib';
 
 const failedTest = new Mocha.Test('generates a report on failure', function () {
-    // @ts-expect-error we need to generate `false` here
-    assert(2 === 1, 'Expected 2 to equal 1');
+    equal(2, 1, 'Expected 2 to equal 1');
 });
 
 const successfulTest = new Mocha.Test('successful test', function (done) {
@@ -64,7 +63,7 @@ describe('GitHub Actions Reporter', function () {
         runner = new Runner(suite, { delay: false });
 
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-        // @ts-ignore
+        // @ts-expect-error
         // eslint-disable-next-line @typescript-eslint/no-unsafe-call
         new mocha._reporter(runner, {}); // NOSONAR
     });
@@ -77,15 +76,16 @@ describe('GitHub Actions Reporter', function () {
 
         runner.run(function (failureCount) {
             unhook();
-            expect(failureCount).to.equal(1);
+            equal(failureCount, 1);
 
             const lines = result.trim().split('\n');
-            expect(lines).to.have.lengthOf(3);
-            expect(lines[0]).to.equal('::group::Mocha Annotations');
-            expect(lines[1]).to.match(
+            equal(lines.length, 3);
+            equal(lines[0], '::group::Mocha Annotations');
+            match(
+                lines[1]!,
                 /^::error title=Test Suite » generates a report on failure,file=[^,]+,line=\d+,col=\d+::Expected 2 to equal 1$/u,
             );
-            expect(lines[2]).to.equal('::endgroup::');
+            equal(lines[2], '::endgroup::');
 
             done();
         });
@@ -99,8 +99,8 @@ describe('GitHub Actions Reporter', function () {
 
         runner.run(function (failureCount) {
             unhook();
-            expect(failureCount).to.equal(0);
-            expect(result).to.equal('');
+            equal(failureCount, 0);
+            equal(result, '');
             done();
         });
     });
