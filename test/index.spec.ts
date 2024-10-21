@@ -37,7 +37,7 @@ const hook = (
     _orig: typeof process.stdout.write,
     s: string | Uint8Array,
     encoding: unknown,
-    // eslint-disable-next-line @typescript-eslint/ban-types
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
     cb: Function | undefined,
 ): boolean => {
     const callback = typeof encoding === 'function' ? encoding : cb;
@@ -63,7 +63,7 @@ describe('GitHub Actions Reporter', function () {
 
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         // @ts-expect-error
-        // eslint-disable-next-line @typescript-eslint/no-unsafe-call
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-call, sonarjs/constructor-for-side-effects
         new mocha._reporter(runner, {}); // NOSONAR
     });
 
