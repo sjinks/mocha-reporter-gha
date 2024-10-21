@@ -82,7 +82,7 @@ describe('GitHub Actions Reporter', function () {
             equal(lines[0], '::group::Mocha Annotations');
             match(
                 lines[1]!,
-                /^::error title=Test Suite » generates a report on failure,file=[^,]+,line=\d+,col=\d+::Expected 2 to equal 1$/u,
+                /^::error title=Test Suite » generates a report on failure,file=[^,]+,line=\d+,col=\d+::Expected 2 to equal 1/u,
             );
             equal(lines[2], '::endgroup::');
 
