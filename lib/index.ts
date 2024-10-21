@@ -53,17 +53,17 @@ class GitHubActionsReporter extends mocha.reporters.Base {
     /**
      * @see https://github.com/findmypast-oss/mocha-json-streamier-reporter/blob/master/lib/parse-stack-trace.js#L5
      */
-    // eslint-disable-next-line class-methods-use-this
+    // eslint-disable-next-line @typescript-eslint/class-methods-use-this
     private _parseStackTrace(stack?: string): ErrorLocation | null {
         // istanbul ignore else
         if (stack) {
-            const matches = /^\s*at Context[^(]+\(([^()]+):(\d+):(\d+)\)/gmu.exec(stack);
+            const matches = /^[ \t]*at Context[^(]+\(([^()]+):(\d+):(\d+)\)/gmu.exec(stack);
             // istanbul ignore else
             if (matches) {
                 return {
-                    file: matches[1] as string,
-                    line: parseInt(matches[2] as string, 10),
-                    column: parseInt(matches[3] as string, 10),
+                    file: matches[1]!,
+                    line: parseInt(matches[2]!, 10),
+                    column: parseInt(matches[3]!, 10),
                 };
             }
         }

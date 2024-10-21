@@ -1,16 +1,24 @@
-name: Pre-release Testing
+name: Linting
 
 on:
   push:
-    tags:
-      - "*"
+    branches:
+      - master
+  pull_request:
+  workflow_dispatch:
 
 permissions:
   contents: read
 
+env:
+  NPM_CONFIG_FUND: '0'
+  NPM_CONFIG_AUDIT: '0'
+  SUPPRESS_SUPPORT: '1'
+  NO_UPDATE_NOTIFIER: 'true'
+
 jobs:
-  build:
-    name: Build and test
+  lint:
+    name: ESLint Check
     runs-on: ubuntu-latest
     permissions:
       contents: read
@@ -38,21 +46,15 @@ jobs:
 
       - name: Install dependencies
         run: npm ci --ignore-scripts
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Run postinstall scripts
-        run: npm rebuild && npm run prepare --if-present
+      - name: Run ESLint
+        run: npm run lint
 
-      - name: Run tests
-        run: npm test
-
-  release:
-    name: Prepare the release
+  typecheck:
+    name: TypeScript Check
     runs-on: ubuntu-latest
-    needs: build
     permissions:
-      contents: write
+      contents: read
     steps:
       - name: Harden Runner
         uses: step-security/harden-runner@91182cccc01eb5e619899d80e4e971d6181294a7 # v2.10.1
@@ -62,13 +64,21 @@ jobs:
           allowed-endpoints: >
             api.github.com:443
             github.com:443
+            objects.githubusercontent.com:443
+            nodejs.org:443
+            registry.npmjs.org:443
 
-      - name: Checkout
+      - name: Check out the code
         uses: actions/checkout@eef61447b9ff4aafe5dcd4e0bbf5d482be7e7871 # v4.2.1
 
-      - name: Create a release
-        uses: softprops/action-gh-release@c062e08bd532815e2082a85e87e3ef29c3e6d191 # v2.0.8
+      - name: Set up Node.js environment
+        uses: actions/setup-node@0a44ba7841725637a19e28fa30b79a866c81b0a6 # v4.0.4
         with:
-          generate_release_notes: true
-        env:
-          GITHUB_TOKEN: ${{ secrets.REPOSITORY_ACCESS_TOKEN }}
+          node-version: lts/*
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci --ignore-scripts
+
+      - name: Run tsc
+        run: npm run typecheck
