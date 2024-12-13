@@ -26,7 +26,7 @@
   "author": "Volodymyr Kolesnykov <volodymyr@wildwolf.name> (https://wildwolf.name/)",
   "license": "MIT",
   "devDependencies": {
-    "@myrotvorets/eslint-config-myrotvorets-ts": "^2.22.6",
+    "@myrotvorets/eslint-config-myrotvorets-ts": "^3.0.0",
     "@types/mocha": "^10.0.3",
     "@types/node": "^22.0.0",
     "eslint-plugin-mocha": "^10.2.0",
