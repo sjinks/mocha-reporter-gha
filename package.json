@@ -29,7 +29,7 @@
     "@myrotvorets/eslint-config-myrotvorets-ts": "^3.0.0",
     "@types/mocha": "^10.0.3",
     "@types/node": "^24.0.0",
-    "eslint-plugin-mocha": "^10.2.0",
+    "eslint-plugin-mocha": "^11.0.0",
     "mocha": "^11.0.0",
     "nyc": "^17.0.0",
     "ts-node": "^10.9.1",
