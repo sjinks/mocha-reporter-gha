@@ -1,7 +1,7 @@
 {
   "name": "mocha-reporter-gha",
   "description": "Mocha reporter for GitHub Actions",
-  "version": "2.0.1",
+  "version": "2.0.2",
   "main": "dist/lib/index.js",
   "scripts": {
     "build": "tsc",
