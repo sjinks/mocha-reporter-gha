@@ -1,5 +1,5 @@
-import { type AnnotationProperties, endGroup, error, startGroup } from '@actions/core';
 import mocha from 'mocha';
+import { issueCommand } from './command';
 
 interface ErrorLocation {
     file: string;
@@ -28,9 +28,9 @@ class GitHubActionsReporter extends mocha.reporters.Base {
 
     private readonly _onEnd = (): void => {
         if (this.failedTests.length > 0) {
-            startGroup('Mocha Annotations');
+            process.stdout.write(issueCommand('group', {}, 'Mocha Annotations'));
             this.failedTests.forEach(this._testVisitor);
-            endGroup();
+            process.stdout.write(issueCommand('endgroup'));
         }
     };
 
@@ -39,14 +39,14 @@ class GitHubActionsReporter extends mocha.reporters.Base {
         if (test.err) {
             const { message } = test.err;
             const location = this._parseStackTrace(test.err.stack);
-            const properties: AnnotationProperties = {
+            const properties: Record<string, unknown> = {
                 title: test.titlePath().join(' » '),
                 file: location ? location.file : undefined,
-                startLine: location ? location.line : undefined,
-                startColumn: location ? location.column : undefined,
+                line: location ? location.line : undefined,
+                col: location ? location.column : undefined,
             };
 
-            error(message, properties);
+            process.stdout.write(issueCommand('error', properties, message));
         }
     };
 
